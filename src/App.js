@@ -17,6 +17,7 @@ function App () {
           audience={audience}
           scope="read:files"
           useRefreshTokens={true}
+          cacheLocation='localstorage'
       >
         <LoginContainer></LoginContainer>
         <Authentication></Authentication>

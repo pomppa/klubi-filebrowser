@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withAuth0 } from '@auth0/auth0-react';
+
 import Random from './Random';
 import Files from './Files';
 
@@ -16,11 +17,9 @@ class Storage extends React.Component {
   }
 
   componentDidMount() {
-    // eslint-disable-next-line react/prop-types
     const { auth0 } = this.props;
     const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
-    // eslint-disable-next-line react/prop-types
     auth0.getAccessTokenSilently().then((token) => {
       fetch(
         `${apiBaseUrl}/api/aws/files`,
@@ -33,7 +32,6 @@ class Storage extends React.Component {
         .then(
           (result) => {
             const s3 = result.pop();
-
             const fileKeys = result.map((obj) => s3.url + obj.Key);
 
             this.setState({
@@ -62,6 +60,7 @@ class Storage extends React.Component {
       return (
         <div>
           Error:
+          {' '}
           {error.message}
         </div>
       );
@@ -79,10 +78,12 @@ class Storage extends React.Component {
 
 Storage.propTypes = {
   getAccessTokenSilently: PropTypes.func,
+  auth0: PropTypes.objectOf(withAuth0),
 };
 
 Storage.defaultProps = {
   getAccessTokenSilently: () => {},
+  auth0: {},
 };
 
 export default withAuth0(Storage);

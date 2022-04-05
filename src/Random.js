@@ -62,9 +62,7 @@ class Random extends React.Component {
     return (
       <div className="flex flex-col justify-center items-center">
         <h1 className="text-3xl text-center m-5">Random</h1>
-
         <div>
-
           {isVideo
             ? (
               <div className="flex flex-col justify-center items-center">
@@ -113,7 +111,6 @@ class Random extends React.Component {
             { copied ? 'Copied ✓' : 'Copy URL to clipboard' }
           </button>
         </div>
-
       </div>
     );
   }

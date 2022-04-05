@@ -1,7 +1,5 @@
 import { React } from 'react';
-// import { Link } from 'react-router-dom';
-
-import PropTypes from 'prop-types';
+import PropTypes, { number, string } from 'prop-types';
 
 function Files(props) {
   const {
@@ -13,7 +11,6 @@ function Files(props) {
       <div>
         Error:
         {error.message}
-        {s3Url}
       </div>
     );
   } if (!isLoaded) {
@@ -36,7 +33,6 @@ function Files(props) {
             <tr className="border-b break-all" key={item.Key}>
               <td className="break-all cursor-pointer max-w-xs px-6 py-4 text-sm font-medium text-blue-600 hover:text-blue-800 visited:text-purple-600">
                 <a href={(s3Url) + (item.Key)} target="_blank" rel="noreferrer">{item.Key.split('/').pop()}</a>
-                {/* <Link to={{ pathname: (s3Url) + (item.Key) }} /> */}
               </td>
               <td className="break-all text-sm text-gray-900 font-light px-6 py-4 ">{ item.LastModified }</td>
               <td className="break-all text-sm text-gray-900 font-light px-6 py-4 ">{ item.Size }</td>
@@ -51,15 +47,24 @@ function Files(props) {
 Files.propTypes = {
   error: PropTypes.bool,
   isLoaded: PropTypes.bool,
-  // eslint-disable-next-line react/forbid-prop-types
-  result: PropTypes.arrayOf(PropTypes.object),
+  result: PropTypes.arrayOf(PropTypes.shape({
+    Key: string,
+    LastModified: string,
+    Size: number,
+    StorageClass: string,
+  })),
   s3Url: PropTypes.string,
 };
 
 Files.defaultProps = {
   error: false,
   isLoaded: false,
-  result: [{}],
+  result: [{
+    Key: '',
+    LastModified: '',
+    Size: 0,
+    StorageClass: '',
+  }],
   s3Url: '',
 };
 

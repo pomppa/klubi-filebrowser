@@ -6,9 +6,4 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-  variants: {
-    extend: {
-      textColor: ['visited'],
-    },
-  },
 };

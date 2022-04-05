@@ -19,7 +19,5 @@ module.exports = {
   ],
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
-    'scss.lint.unknownAtRules': 0,
-    'css.lint.unknownAtRules': 0,
   },
 };

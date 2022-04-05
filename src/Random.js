@@ -13,6 +13,15 @@ class Random extends React.Component {
   }
 
   componentDidMount() {
+    this.fetchRandomMedia();
+  }
+
+  shouldComponentUpdate() {
+    const { isLoaded } = this.props;
+    return isLoaded;
+  }
+
+  fetchRandomMedia() {
     const { items } = this.props;
     const resource = items[Math.floor(Math.random() * items.length)];
 
@@ -20,27 +29,24 @@ class Random extends React.Component {
       .then((data) => {
         this.setState({
           resource,
-          isVideo: !!data.headers.get('content-type').includes('video'),
+          isVideo: data.headers.get('content-type').includes('video'),
         });
+        return resource;
       });
-  }
-
-  shouldComponentUpdate() {
-    const { isLoaded } = this.props;
-    return !!isLoaded;
   }
 
   render() {
     const { error, isLoading } = this.props;
-    const { copied } = this.state;
     const errorMessage = error.message;
 
     const { resource, isVideo } = this.state;
+    const { copied } = this.state;
+
     const btnStyle = copied
       ? 'text-sm bg-gray-300 hover:bg-gray-300 text-white-800 font-semibold py-2 px-2 border border-gray-400 rounded shadow m-5 w-48'
       : 'text-sm bg-white hover:bg-gray-100 text-white-800 font-semibold py-2 px-2 border border-gray-400 rounded shadow m-5 w-48';
 
-    if (error) {
+    if (error && errorMessage) {
       return (
         <div>
           Error:
@@ -79,7 +85,7 @@ class Random extends React.Component {
           <button
             type="button"
             className="text-sm bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-            onClick={() => this.componentDidMount()}
+            onClick={() => this.fetchRandomMedia()}
           >
             Refresh
           </button>

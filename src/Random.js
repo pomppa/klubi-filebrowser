@@ -65,13 +65,15 @@ class Random extends React.Component {
         <div>
           {isVideo
             ? (
-              <div className="flex flex-col justify-center items-center">
+              <div className="md:w-640 h-[360px] flex flex-col justify-center items-center">
                 <ReactPlayer
                   url={resource}
                   playing
                   loop
                   controls
                   muted
+                  width="100%"
+                  height="100%"
                 />
               </div>
             )

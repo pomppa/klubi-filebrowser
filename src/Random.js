@@ -115,14 +115,14 @@ class Random extends React.Component {
 
 Random.propTypes = {
   error: PropTypes.string,
-  items: PropTypes.arrayOf,
+  items: PropTypes.arrayOf(PropTypes.string),
   isLoading: PropTypes.bool,
   isLoaded: PropTypes.bool,
 };
 
 Random.defaultProps = {
   error: '',
-  items: [],
+  items: [''],
   isLoading: false,
   isLoaded: false,
 };

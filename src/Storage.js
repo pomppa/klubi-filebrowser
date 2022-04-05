@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withAuth0 } from '@auth0/auth0-react';
 import Random from './Random';
-import FileList from './FileList';
+import Files from './Files';
 
 class Storage extends React.Component {
   constructor(props) {
@@ -16,10 +16,12 @@ class Storage extends React.Component {
   }
 
   componentDidMount() {
-    const { getAccessTokenSilently } = this.props;
+    // eslint-disable-next-line react/prop-types
+    const { auth0 } = this.props;
     const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
-    getAccessTokenSilently().then((token) => {
+    // eslint-disable-next-line react/prop-types
+    auth0.getAccessTokenSilently().then((token) => {
       fetch(
         `${apiBaseUrl}/api/aws/files`,
         {
@@ -69,7 +71,7 @@ class Storage extends React.Component {
     return (
       <div>
         <Random isLoaded={isLoaded} items={items} s3Url={s3Url} result={result} />
-        <FileList isLoaded={isLoaded} items={items} s3Url={s3Url} result={result} />
+        <Files isLoaded={isLoaded} items={items} s3Url={s3Url} result={result} />
       </div>
     );
   }
